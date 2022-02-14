@@ -34,6 +34,9 @@ const MemberSchema = yup.object().shape({
 
 const createMember = async (event) => {
   event.preventDefault()
+ if(event.target[0].value === ""){
+   return
+ } else {
   let formData = {
     name: event.target[0].value
   };
@@ -44,6 +47,7 @@ const createMember = async (event) => {
             console.log(e)
         })
         router.reload(window.location.pathname)
+      }
 }
  return (
 <>
@@ -70,11 +74,11 @@ const createMember = async (event) => {
             <div className={styles.container}>
                 <Form onSubmit={createMember} className={styles.newMemberForm}>
                     <label htmlFor="name" className={styles.label}>Nom de l&apos;Argonaute</label>
-                    <input className={styles.input} id="name" name="name" type="text" placeholder="Charalampos" />
+                    <Field className={styles.input} id="name" name="name" type="text" placeholder="Charalampos" />
                     <button className={styles.button} type="submit">Envoyer</button>
-                    <ErrorMessage name="name" component="div" className={styles.error} />
+                    <ErrorMessage  name="name" render={msg => <div className={styles.error}>{msg}</div>} />
                 </Form>  
-                </div>
+            </div>
                 )}
     </Formik>
   {/* Member list */}
